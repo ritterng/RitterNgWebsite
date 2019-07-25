@@ -77,27 +77,27 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'database.sqlite3'),
-
-    }
-}
-
 #DATABASES = {
 #    'default': {
-#        'ENGINE': 'sql_server.pyodbc',
-#        'NAME': config('DB_NAME'),
-#        'USER':config('DB_USER'),
-#        'PASSWORD':config('DB_PASSWORD'),
-#        'HOST':config('DB_HOST'),
-#        'PORT':config('DB_PORT'),
-#        'OPTIONS':{
-#            'driver': config('DB_DRIVER'),
-#        },
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR,'database.sqlite3'),
+#
 #    }
 #}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': config('DB_NAME'),
+        'USER':config('DB_USER'),
+        'PASSWORD':config('DB_PASSWORD'),
+        'HOST':config('DB_HOST'),
+        'PORT':config('DB_PORT'),
+        'OPTIONS':{
+            'driver': config('DB_DRIVER'),
+        },
+    }
+}
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
 # Password validation
