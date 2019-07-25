@@ -87,15 +87,15 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'USER':config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
         'HOST':config('DB_HOST'),
         'PORT':config('DB_PORT'),
-        'OPTIONS':{
-            'driver': config('DB_DRIVER'),
-        },
+        #'OPTIONS':{
+        #    'driver': config('DB_DRIVER'),
+        #},
     }
 }
 
