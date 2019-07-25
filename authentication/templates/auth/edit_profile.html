@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Profile</h2>
+<form method='POST' action="{% url 'edit-profile' %}">
+    {% csrf_token %}
+
+    {% if form.errors %}
+
+    {% for field in form %}
+
+    {% if field.errors %}
+    <p>{{ field.errors }}</p>
+    {% endif %}
+
+    {% endfor %}
+
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <input type='submit' value="Save" class="btn btn-primary">
+</form>
+{% endblock %}
