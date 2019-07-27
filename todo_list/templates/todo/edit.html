@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if item %}
-<form class="from-inline my-2 my-lg-0" method="POST">
+<form class="from-inline my-2 my-lg-0" method="POST" action='{{ item.id }}'>
     {% csrf_token %}
     <input class="form-control mr-sm-2" type="search" placeholder="{{ item.item }}" value="{{ item.item }}"
         aria-label="Search" name="item">

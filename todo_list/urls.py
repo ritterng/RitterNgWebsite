@@ -6,4 +6,5 @@ urlpatterns = [
     path('cross-off/<list_id>', views.cross_off, name='cross-off'),
     path('uncross/<list_id>', views.uncross, name='uncross'),
     path('edit/<list_id>', views.edit, name='edit'),
+    path('wish/',views.wish_list_home,name='wish'),
 ]

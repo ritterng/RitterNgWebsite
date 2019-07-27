@@ -1,7 +1,13 @@
 from django import forms
-from .models import List
+from .models import ToDoItem, WishList, ItemGroup
 
 class ListForm(forms.ModelForm):
     class Meta:
-        model = List
-        fields = ["item","deadline","points","completed"]
+        model = ToDoItem
+        fields = ["item","points","completed"]
+    
+
+class WishForm(forms.ModelForm):
+    class Meta:
+        model = WishList
+        fields = ["item", "points", "link", "description"]
