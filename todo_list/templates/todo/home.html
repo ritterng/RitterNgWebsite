@@ -10,7 +10,7 @@
             <a href="{% url 'edit' item.id %}"><del>{{ item.item }}</del></a>
         </td>
         <td>
-            <center>{{ item.deadline.deadline }}</center>
+            <center>{{ item.ddl_date }}</center>
         </td>
         <td>
             <center>{{ item.points }}</center>
@@ -29,7 +29,7 @@
             <a href="{% url 'edit' item.id %}">{{ item.item }}</a>
         </td>
         <td>
-            <center>{{ item.deadline.deadline }}</center>
+            <center>{{ item.ddl_date }}</center>
         </td>
         <td>
             <center>{{ item.points }}</center>

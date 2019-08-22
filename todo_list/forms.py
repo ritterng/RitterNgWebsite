@@ -1,5 +1,5 @@
 from django import forms
-from .models import ToDoItem, WishList, ItemGroup
+from .models import ToDoItem, WishList
 
 class ListForm(forms.ModelForm):
     class Meta:

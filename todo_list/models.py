@@ -2,21 +2,21 @@
 
 from django.db import models
 from datetime import date
-
-
-# Create your models here.
+'''
 class ItemGroup(models.Model):
     deadline = models.DateField(default = date.today)
     owner = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
 
     def __str__(self):
         return str(self.deadline) + '|' + self.owner.username
-    
+'''  
 class ToDoItem(models.Model):
     item = models.CharField(max_length=200)
-    deadline = models.ForeignKey(ItemGroup, on_delete=models.CASCADE)
+    ddl_date = models.DateField(default = date.today)
+    #deadline = models.ForeignKey(ItemGroup, on_delete=models.CASCADE)
     points = models.IntegerField(default=100)
     completed = models.BooleanField(default = False)
+    owner = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
 
     def __str__(self):
         return self.item + ' | ' + str(self.completed)
