@@ -15,28 +15,29 @@ def home(request):
     if not request.user.is_authenticated:
         messages.warning(request,("You are not logged in!"))
         return redirect(index)
-
+    user = request.user
     if request.method == 'POST':
         form = ListForm(request.POST or None)
-        user = request.user
-        #TODO Add user filter
-        #TODO add group by
+        print(form)
         if form.is_valid():
-            item = form.save()
-            all_items = ToDoItem.objects.all()
-
+            item = form.save(commit = False)
+            item.owner = user
+            item.save()
+            all_items = ToDoItem.objects.filter(owner = user)
             messages.success(request, ('Item Has Been Added To List!'))
             return render(request, 'todo/home.html', {'all_items': all_items})
         else:
             #all_items = ToDoItem.objects.all
-            #messages.warning(request, ('Item cannot be empty!'))
-            messages.warning(request, (form.errors))
+            messages.warning(request, ('Item cannot be empty!'))
+            #messages.warning(request, (form.errors))
             return render(request, 'todo/home.html', {'all_items': all_items})
 
     else:
-        #TODO Add user filter
-        #TODO add group by
-        all_items = ToDoItem.objects.all
+        all_items = ToDoItem.objects.filter(owner = user)
+        for item in all_items:
+            print(item.item)
+            print(item.id)
+            print()
         return render(request, 'todo/home.html', {'all_items': all_items})
 
 @login_required
@@ -71,10 +72,15 @@ def edit(request, list_id):
     if request.method == 'POST':
         item = ToDoItem.objects.get(pk=list_id)
         form = ListForm(request.POST or None, instance=item)  
-        user = request.user      
+        user = request.user    
         if form.is_valid():
-            item = form.save()
+            item = form.save(commit = False)
+            item.owner = user
+            item.save()
             messages.success(request, ('Item Has Been Edited!'))
+            return redirect('home')
+        else:
+            message.warning(request,("failed"))
             return redirect('home')
 
     else:
@@ -85,11 +91,14 @@ def wish_list_home(request):
     if not request.user.is_authenticated:
         messages.warning(request,('You are not logged in!'))
         return redirect('index')
+    user = request.user
     if request.method == 'POST':
         form = WishForm(request.POST or None)
-        #TODO Add user filter
+
         if form.is_valid:
-            form.save()
+            item = form.save(commit=False)
+            item.owner = user
+            item.save()
             items = WishList.objects.all()
             messages.success(request,("Wish has been added!"))
             return render(request, "wish/wish-list.html",{'items':items})

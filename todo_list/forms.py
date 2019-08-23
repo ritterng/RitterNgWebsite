@@ -4,7 +4,7 @@ from .models import ToDoItem, WishList
 class ListForm(forms.ModelForm):
     class Meta:
         model = ToDoItem
-        fields = ["item","points","completed"]
+        fields = ["item","ddl_date","points","completed"]
     
 
 class WishForm(forms.ModelForm):

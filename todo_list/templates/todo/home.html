@@ -3,46 +3,58 @@
 {% block content %}
 {% if all_items %}
 <table class='table table-bordered'>
-    {% for item in all_items %}
-    {% if item.completed %}
-    <tr class='table-secondary'>
-        <td>
-            <a href="{% url 'edit' item.id %}"><del>{{ item.item }}</del></a>
-        </td>
-        <td>
-            <center>{{ item.ddl_date }}</center>
-        </td>
-        <td>
-            <center>{{ item.points }}</center>
-        </td>
-        <td>
-            <center><a href="{% url 'uncross' item.id %}">Uncross</a></center>
-        </td>
-        <td>
-            <center><a href="{% url 'delete' item.id %}">Delete</a></center>
-        </td>
+    {% regroup all_items by ddl_date as items_by_date %}
+    {% for items in items_by_date %}
+    {{ items.grouper }}
 
-    </tr>
-    {% else %}
-    <tr>
-        <td>
-            <a href="{% url 'edit' item.id %}">{{ item.item }}</a>
-        </td>
-        <td>
-            <center>{{ item.ddl_date }}</center>
-        </td>
-        <td>
-            <center>{{ item.points }}</center>
-        </td>
-        <td>
-            <center><a href="{% url 'cross-off' item.id %}">Cross-off</a></center>
-        </td>
-        <td>
-            <center><a href="{% url 'delete' item.id %}">Delete</a></center>
-        </td>
-    </tr>
-    {% endif %}
+
+    {% for item in items.list %}
+    <p>{{ item }}</p>
+    <ul>
+        {% if item.completed %}
+        <tr class='table-secondary'>
+            <td>
+                <a href="{% url 'edit' item.id %}"><del>{{ item.item }}</del></a>
+            </td>
+            <td>
+                <center>{{ item.ddl_date }}</center>
+            </td>
+            <td>
+                <center>{{ item.points }}</center>
+            </td>
+            <td>
+                <center><a href="{% url 'uncross' item.id %}">Uncross</a></center>
+            </td>
+            <td>
+                <center><a href="{% url 'delete' item.id %}">Delete</a></center>
+            </td>
+
+        </tr>
+        {% else %}
+        <tr>
+
+            <td>
+                <a href="{% url 'edit' item.id %}">{{ item.item }}</a>
+            </td>
+            <td>
+                <center>{{ item.ddl_date }}</center>
+            </td>
+            <td>
+                <center>{{ item.points }}</center>
+            </td>
+            <td>
+                <center><a href="{% url 'cross-off' item.id %}">Cross-off</a></center>
+            </td>
+            <td>
+                <center><a href="{% url 'delete' item.id %}">Delete</a></center>
+            </td>
+
+        </tr>
+        {% endif %}
+    </ul>
     {% endfor %}
+    {% endfor %}
+
 </table>
 {% endif %}
 {% endblock %}
