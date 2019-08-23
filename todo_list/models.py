@@ -26,6 +26,7 @@ class WishList(models.Model):
     points = models.IntegerField(default = 0)
     link = models.CharField(max_length = 200)
     description = models.CharField(max_length = 1000)
+    owener = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
 
     def __str__(self):
         return self.item + "|" + str(self.points)

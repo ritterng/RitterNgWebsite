@@ -19,26 +19,12 @@ def home(request):
     if request.method == 'POST':
         form = ListForm(request.POST or None)
         user = request.user
-
-
+        #TODO Add user filter
+        #TODO add group by
         if form.is_valid():
             item = form.save()
-            '''
-            item = form.save(commit=False)
-            
-            date = request.POST['deadline']
-            try:
-                #TODO update
-                group = ItemGroup.objects.get(deadline = date, owner = user)
-            except:
-                print('fail to retret')
-                #TODO update
-                group = ItemGroup(deadline = date, owner = user)
-                group.save()
-            item.deadline = group
-            item.save()
-            '''
-            all_items = ToDoItem.objects.all
+            all_items = ToDoItem.objects.all()
+
             messages.success(request, ('Item Has Been Added To List!'))
             return render(request, 'todo/home.html', {'all_items': all_items})
         else:
@@ -48,6 +34,8 @@ def home(request):
             return render(request, 'todo/home.html', {'all_items': all_items})
 
     else:
+        #TODO Add user filter
+        #TODO add group by
         all_items = ToDoItem.objects.all
         return render(request, 'todo/home.html', {'all_items': all_items})
 
@@ -86,19 +74,6 @@ def edit(request, list_id):
         user = request.user      
         if form.is_valid():
             item = form.save()
-            '''
-            date = request.POST['deadline']
-            try:
-                #TODO Update Item Group
-                group = ItemGroup.objects.get(deadline = date, owner = user)
-            except:
-                print('fail to retret')
-                #TODO Update Item Group
-                group = ItemGroup(deadline = date, owner = user)
-                group.save()
-            item.deadline = group
-            item.save()
-            '''
             messages.success(request, ('Item Has Been Edited!'))
             return redirect('home')
 
@@ -112,7 +87,7 @@ def wish_list_home(request):
         return redirect('index')
     if request.method == 'POST':
         form = WishForm(request.POST or None)
-
+        #TODO Add user filter
         if form.is_valid:
             form.save()
             items = WishList.objects.all()
