@@ -38,7 +38,6 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    sudo apt-get install libpq-dev
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
