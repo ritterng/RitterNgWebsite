@@ -38,12 +38,7 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    wget http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-2.8.3.tar.gz
-    tar xvzf psycopg2-2.8.3.tar.gz
-    cd psycopg2-2.8.3
-    python setup.py build
-    python setup.py install
-    cd ..
+    apt-get install libpq-dev
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
