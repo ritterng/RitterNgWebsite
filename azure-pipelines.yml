@@ -44,6 +44,10 @@ steps:
   displayName: 'Install prerequisites'
 
 - script: |
+    python -m pip freeze
+  displayName: 'check installed packages'
+
+- script: |
     pushd '$(projectRoot)'
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
   displayName: 'Run tests'
