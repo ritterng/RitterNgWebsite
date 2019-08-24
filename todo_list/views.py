@@ -27,7 +27,7 @@ def home(request):
             messages.success(request, ('Item Has Been Added To List!'))
             return render(request, 'todo/home.html', {'all_items': all_items})
         else:
-            #all_items = ToDoItem.objects.all
+            all_items = ToDoItem.objects.all
             messages.warning(request, ('Item cannot be empty!'))
             #messages.warning(request, (form.errors))
             return render(request, 'todo/home.html', {'all_items': all_items})
