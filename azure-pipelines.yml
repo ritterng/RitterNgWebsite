@@ -38,7 +38,7 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    apt-get install libpq-dev
+    export PATH=/usr/lib/postgresql/X.Y/bin/:$PATH
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
