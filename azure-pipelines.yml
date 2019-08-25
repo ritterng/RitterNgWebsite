@@ -38,7 +38,8 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    export PATH=/var/lib/docker/overlay2/b2a84c0f4e319c18be1ef7ac65852e0210490d2433e724c9bcb1fd3b21aad07e/diff/usr/bin/pg_config:$PATH
+    pg_config_path = $(sudo find / -name "pg_config" -print)
+    export PATH=$pg_config_path:$PATH
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
