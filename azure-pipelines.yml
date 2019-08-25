@@ -48,7 +48,7 @@ steps:
     echo "DB_ENGINE = "$DB_ENGINE >> .env 
     echo "DB_HOST = "$DB_HOST >> .env 
     current = $(pwd)
-    echo $current
+    echo "$current"
     echo "DB_NAME = " $current"/"$DB_NAME >> .env 
     echo "DB_PASSWORD = "$DB_PASSWORD >> .env 
     echo "DB_PORT = "$DB_PORT >> .env 
