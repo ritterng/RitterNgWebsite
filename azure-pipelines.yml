@@ -39,6 +39,23 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
+-script: |
+    touch .env
+    echo "SECRET_KEY = "$SECRET_KEY >> .env 
+    echo "ALLOWED_HOSTS = "$ALLOWED_HOSTS >> .env 
+    echo "DATABASE_URL = "$DATABASE_URL >> .env 
+    echo "DB_DRIVER = "$DB_DRIVER >> .env 
+    echo "DB_ENGINE = "$DB_ENGINE >> .env 
+    echo "DB_HOST = "$DB_HOST >> .env 
+    echo "DB_NAME = "$DB_NAME >> .env 
+    echo "DB_PASSWORD = "$DB_PASSWORD >> .env 
+    echo "DB_PORT = "$DB_PORT >> .env 
+    echo "DB_USER = "$DB_USER >> .env 
+    echo "DEBUG = "$DEBUG >> .env 
+    echo "ODBCSYSINI = "$ODBCSYSINI >> .env 
+    cat .env
+  displayName: 'create .env file'
+
 - script: |
     python -m pip install --upgrade pip setuptools wheel
     sudo apt-get update
