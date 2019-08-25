@@ -1,4 +1,4 @@
 .env
 .vscode/
-.venv/
-.test.sqlite3
+venv/
+test.sqlite3
