@@ -38,7 +38,7 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    sodu apt-get install postgresql postgresql-dev python-dev
+    sodo apt-get install postgresql postgresql-dev python-dev
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
