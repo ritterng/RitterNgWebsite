@@ -47,10 +47,7 @@ steps:
     echo "DB_DRIVER = "$DB_DRIVER >> .env 
     echo "DB_ENGINE = "$DB_ENGINE >> .env 
     echo "DB_HOST = "$DB_HOST >> .env 
-    echo $PWD
-    current = $PWD
-    echo "$current"
-    echo "DB_NAME = " $current"/"$DB_NAME >> .env 
+    echo "DB_NAME = " $project_location"/"$DB_NAME >> .env 
     echo "DB_PASSWORD = "$DB_PASSWORD >> .env 
     echo "DB_PORT = "$DB_PORT >> .env 
     echo "DB_USER = "$DB_USER >> .env 
