@@ -71,6 +71,15 @@ steps:
     ls
   displayName: 'check installed packages'
 
+- task: PythonScript@0
+  displayName: "Check database setting"
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      from .todo import settings
+      print(settings.DATABASES)
+
+
 - script: |
     pushd '$(projectRoot)'
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
