@@ -73,6 +73,8 @@ steps:
 
 - script: |
     python checkdatabase.py
+    echo ""
+    cat todo/settings.py
   displayName: "Check Database"
 
 
