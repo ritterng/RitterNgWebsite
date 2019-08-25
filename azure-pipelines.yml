@@ -53,7 +53,7 @@ steps:
     echo "DB_USER='$(DB_USER)'" >> .env 
     echo "DEBUG=$(DEBUG)" >> .env 
     echo "ODBCSYSINI='$(ODBCSYSINI)'" >> .env 
-    echo "SECRET_KEY='$(Login)'" >> .env 
+    echo "SECRET_KEY='"$(Login)""'" >> .env 
     cat .env
   displayName: 'Create .env File'
 
