@@ -75,3 +75,71 @@ class HomePageTests(TestCase):
         self.assertFalse(models.ToDoItem.objects.filter(item=12).exists())
         
         self.client.logout()
+
+
+class IndexPageTest(TestCase):
+
+    def setUp(self):
+        pass
+    
+    def test_index_page(self):
+        response = self.client.get('/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_index_page_by_name(self):
+        response = self.client.get(reverse('index'))
+        self.assertEquals(response.status_code, 200)
+
+
+class DeletePageTest(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.user1 = User.objects.create_user(username="testuser", password="trythetest123", points = 0)
+        self.user2 = User.objects.create_user(username="testuser2", password="trythetest123", points = 0)
+
+    def test_delete_page_with_correct_user(self):
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        print(item_id)
+        self.client.login(username="testuser", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/delete/'+str(item_id))
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.client.logout()
+
+    def test_delete_page_with_incorrect_user(self):
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        print(item_id)
+        self.client.login(username="testuser2", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/delete/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertEquals(response.status_code, 302)
+        item.delete()
+
+    def test_delete_page_without_login(self):
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        print(item_id)
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/delete/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertEquals(response.status_code, 302)
+        item.delete()
+
+    def test_delete_page_wrong_item_without_login(self):
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/delete/'+str(item_id))
+        self.assertEquals(response.status_code, 302)
+
+    def test_delete_page_wrong_item_with_login(self):
+        self.client.login(username="testuser2", password="trythetest123")
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/delete/'+str(item_id))
+        self.assertEquals(response.status_code, 302)

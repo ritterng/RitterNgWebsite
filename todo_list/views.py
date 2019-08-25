@@ -42,7 +42,14 @@ def home(request):
 
 @login_required
 def delete(request, list_id):
+    if not ToDoItem.objects.filter(id = list_id).exists():
+        messages.warning(request,("Item does not exist!"))
+        return redirect('home')
     item = ToDoItem.objects.get(pk=list_id)
+    user = request.user
+    if item.owner != user:
+        messages.warning(request,("You don't have permissions to modify this item!"))
+        return redirect('home')
     item.delete()
     messages.success(request, ("Item has been Deleted"))
     return redirect('home')
@@ -108,4 +115,6 @@ def wish_list_home(request):
             return render(request, "wish/wish-list.html",{'items':items})
     items = WishList.objects.all()
     return render(request, "wish/wish-list.html",{'items':items})
+
+
 

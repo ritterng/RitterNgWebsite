@@ -19,7 +19,7 @@ class ToDoItem(models.Model):
     owner = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.item + ' | ' + str(self.completed)
+        return str(self.id) + ' | ' + self.item + ' | ' + str(self.completed) + "\n"
 
 class WishList(models.Model):
     item = models.CharField(max_length = 200)
