@@ -47,7 +47,7 @@ steps:
     echo "DB_DRIVER = "$DB_DRIVER >> .env 
     echo "DB_ENGINE = "$DB_ENGINE >> .env 
     echo "DB_HOST = "$DB_HOST >> .env 
-    echo "DB_NAME = '$PWD/$(DB_NAME) '">> .env 
+    echo "DB_NAME = '$PWD/$(DB_NAME)'">> .env 
     echo "DB_PASSWORD = "$DB_PASSWORD >> .env 
     echo "DB_PORT = "$DB_PORT >> .env 
     echo "DB_USER = "$DB_USER >> .env 
@@ -61,6 +61,7 @@ steps:
     python -m pip install --upgrade pip setuptools wheel
     sudo apt-get update
     sudo apt-get install libpq-dev python-dev
+    sudo apt-get install sqlite3 libsqlite3-dev
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
