@@ -40,7 +40,7 @@ steps:
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
 - script: |
-    echo $SECRET_KEY
+    echo $(Login)
     touch .env 
     echo "ALLOWED_HOSTS = "$ALLOWED_HOSTS >> .env 
     echo "DATABASE_URL = "$DATABASE_URL >> .env 
@@ -53,9 +53,9 @@ steps:
     echo "DB_USER = "$DB_USER >> .env 
     echo "DEBUG = "$DEBUG >> .env 
     echo "ODBCSYSINI = "$ODBCSYSINI >> .env 
-    echo "SECRET_KEY = "$ODBCSYSINI >> .env 
+    echo "SECRET_KEY = "$(Login) >> .env 
     cat .env
-  displayName:  $SECRET_KEY
+  displayName:  $(Login)
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
