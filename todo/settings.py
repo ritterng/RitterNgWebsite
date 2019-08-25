@@ -93,6 +93,7 @@ DATABASES = {
         'PASSWORD':config('DB_PASSWORD'),
         'HOST':config('DB_HOST'),
         'PORT':config('DB_PORT'),
+        'check':True,
         #'OPTIONS':{
         #    'driver': config('DB_DRIVER'),
         #},

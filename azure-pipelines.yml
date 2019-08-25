@@ -42,6 +42,7 @@ steps:
 - script: |
     echo $(Login)
     touch .env 
+    touch $(DB_NAME)
     echo "ALLOWED_HOSTS=$(ALLOWED_HOSTS)" >> .env 
     echo "DATABASE_URL='$(DATABASE_URL)'" >> .env 
     echo "DB_DRIVER='$(DB_DRIVER)'" >> .env 
