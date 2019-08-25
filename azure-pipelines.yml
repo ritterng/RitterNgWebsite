@@ -80,7 +80,8 @@ steps:
       from os import path
       manage_py = next(iglob(path.join('**', 'manage.py'), recursive=True), None)
       project_location = path.dirname(path.abspath(manage_py))
-      import SystemExitsys.path.append(project_location)
+      import sys
+      sys.path.append(project_location)
       from .todo import settings
       print(settings.DATABASES)
 
