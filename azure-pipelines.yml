@@ -69,21 +69,11 @@ steps:
 - script: |
     python -m pip freeze
     ls
-  displayName: 'check installed packages'
+  displayName: 'Check Instaleed Package'
 
-- task: PythonScript@0
-  displayName: "Check database setting"
-  inputs:
-    scriptSource: 'inline'
-    script: |
-      from glob import iglob
-      from os import path
-      manage_py = next(iglob(path.join('**', 'manage.py'), recursive=True), None)
-      project_location = path.dirname(path.abspath(manage_py))
-      import sys
-      sys.path.append(project_location)
-      from .todo import settings
-      print(settings.DATABASES)
+- script: |
+    python checkdatabase.py
+  displayName: "Check Database"
 
 
 
