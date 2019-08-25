@@ -39,7 +39,7 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
--script: |
+- script: |
     touch .env
     echo "SECRET_KEY = "$SECRET_KEY >> .env 
     echo "ALLOWED_HOSTS = "$ALLOWED_HOSTS >> .env 
