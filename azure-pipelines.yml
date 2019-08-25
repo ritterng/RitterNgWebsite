@@ -47,7 +47,8 @@ steps:
     echo "DB_DRIVER = "$DB_DRIVER >> .env 
     echo "DB_ENGINE = "$DB_ENGINE >> .env 
     echo "DB_HOST = "$DB_HOST >> .env 
-    current = $(pwd)
+    echo $PWD
+    current = $PWD
     echo "$current"
     echo "DB_NAME = " $current"/"$DB_NAME >> .env 
     echo "DB_PASSWORD = "$DB_PASSWORD >> .env 
