@@ -55,7 +55,7 @@ steps:
     echo "ODBCSYSINI = "$ODBCSYSINI >> .env 
     echo "SECRET_KEY = "$ODBCSYSINI >> .env 
     cat .env
-  displayName: 'Create .env file'
+  displayName:  $SECRET_KEY
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
