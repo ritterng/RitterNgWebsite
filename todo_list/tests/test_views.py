@@ -143,3 +143,12 @@ class DeletePageTest(TestCase):
         self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
         response = self.client.get('/delete/'+str(item_id))
         self.assertEquals(response.status_code, 302)
+
+    def test_delete_page_without_item_id(self):
+        response = self.client.get('/delete/')
+        self.assertEquals(response.status_code, 404)
+
+    def test_delete_page_without_item_id_with_login(self):
+        self.client.login(username="testuser2", password="trythetest123")
+        response = self.client.get('/delete/')
+        self.assertEquals(response.status_code, 404)
