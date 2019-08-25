@@ -40,6 +40,7 @@ steps:
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
 - script: |
+    echo $SECRET_KEY
     touch .env 
     echo "ALLOWED_HOSTS = "$ALLOWED_HOSTS >> .env 
     echo "DATABASE_URL = "$DATABASE_URL >> .env 
