@@ -75,3 +75,13 @@ class HomePageTests(TestCase):
         self.assertFalse(models.ToDoItem.objects.filter(item=12).exists())
         
         self.client.logout()
+
+
+class IndexPageTest(TestCase):
+
+    def setUp(self):
+        pass
+    
+    def test_index_page(self):
+        response = self.client.get('/')
+        self.assertEquals(response.status_code, 200)
