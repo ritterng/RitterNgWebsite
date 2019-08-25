@@ -75,9 +75,15 @@ steps:
   displayName: "Check database setting"
   inputs:
     scriptSource: 'inline'
-    script: |
-      from .todo import settings
+    script:
+      from glob import iglob
+      from os import path
+      manage_py = next(iglob(path.join('**', 'manage.py'), recursive=True), None)
+      project_location = path.dirname(path.abspath(manage_py))
+      setting_location = preject_location+"/todo/setting.py"
+      import setting_location as settings
       print(settings.DATABASES)
+
 
 
 - script: |
