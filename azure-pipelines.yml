@@ -75,7 +75,7 @@ steps:
   displayName: "Check database setting"
   inputs:
     scriptSource: 'inline'
-    script:
+    script: |
       from glob import iglob
       from os import path
       manage_py = next(iglob(path.join('**', 'manage.py'), recursive=True), None)
