@@ -191,4 +191,4 @@ class EditTest(TestCase):
     pass
 
 class WishListHomeTest(TestCase):
-    
+    pass
