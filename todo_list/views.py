@@ -56,7 +56,13 @@ def delete(request, list_id):
 
 @login_required
 def cross_off(request, list_id):
+    if not ToDoItem.objects.filter(id = list_id).exists():
+        messages.warning(request,("Item does not exist!"))
+        return redirect('home')
     item = ToDoItem.objects.get(pk=list_id)
+    if item.owner != request.user:
+        messages.warning(request,("You don't have permissions to modify this item!"))
+        return redirect('home')      
     user = UserModel.objects.get(pk = request.user.id)
     user.points += item.points
     user.save()
@@ -66,7 +72,13 @@ def cross_off(request, list_id):
 
 @login_required
 def uncross(request, list_id):
+    if not ToDoItem.objects.filter(id = list_id).exists():
+        messages.warning(request,("Item does not exist!"))
+        return redirect('home')
     item = ToDoItem.objects.get(pk=list_id)
+    if item.owner != request.user:
+        messages.warning(request,("You don't have permissions to modify this item!"))
+        return redirect('home') 
     user = UserModel.objects.get(pk = request.user.id)
     user.points -= item.points
     user.save()
@@ -77,9 +89,15 @@ def uncross(request, list_id):
 @login_required
 def edit(request, list_id):
     if request.method == 'POST':
+        if not ToDoItem.objects.filter(id = list_id).exists():
+            messages.warning(request,("Item does not exist!"))
+            return redirect('home')
         item = ToDoItem.objects.get(pk=list_id)
-        form = ListForm(request.POST or None, instance=item)  
-        user = request.user    
+        user = request.user 
+        if item.owner != user:
+            messages.warning(request,("You don't have permissions to modify this item!"))
+            return redirect('home')
+        form = ListForm(request.POST or None, instance=item)     
         if form.is_valid():
             item = form.save(commit = False)
             item.owner = user
