@@ -86,7 +86,6 @@ class HomePageTests(TestCase):
         
         self.client.logout()
 
-
 class IndexPageTest(TestCase):
 
     def setUp(self):
@@ -108,8 +107,6 @@ class IndexPageTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
-
-
 class DeletePageTest(TestCase):
 
     def setUp(self):
@@ -122,7 +119,6 @@ class DeletePageTest(TestCase):
         item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
         item.save()
         item_id = item.id
-        print(item_id)
         self.client.login(username="testuser", password="trythetest123")
         self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
         response = self.client.get('/delete/'+str(item_id))
@@ -134,7 +130,6 @@ class DeletePageTest(TestCase):
         item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
         item.save()
         item_id = item.id
-        print(item_id)
         self.client.login(username="testuser2", password="trythetest123")
         self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
         response = self.client.get('/delete/'+str(item_id))
@@ -147,7 +142,6 @@ class DeletePageTest(TestCase):
         item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
         item.save()
         item_id = item.id
-        print(item_id)
         self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
         response = self.client.get('/delete/'+str(item_id))
         self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
@@ -180,12 +174,143 @@ class DeletePageTest(TestCase):
         response = self.client.get('/delete/')
         self.assertEquals(response.status_code, 404)
 
-
 class CorssOffTest(TestCase):
-    pass
+    def setUp(self):
+        User = get_user_model()
+        self.user1 = User.objects.create_user(username="testuser", password="trythetest123", points = 0)
+        self.user2 = User.objects.create_user(username="testuser2", password="trythetest123", points = 0)
 
-class UncorssTest(TestCase):
-    pass
+    def test_cross_off_page_with_correct_user(self):
+        print("Start to test the corss page with correct user and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.client.login(username="testuser", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        response = response = self.client.get('/cross-off/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        item.delete()
+
+    def test_cross_off_page_with_incorrect_user(self):
+        print("Start to test the corss page with incorrect user and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.client.login(username="testuser2", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        response = response = self.client.get('/cross-off/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        self.assertTrue(response.status_code, 302)
+        item.delete()
+
+    def test_cross_page_without_login(self):
+        print("Start to test the cross-off page without login and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = False, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        response = self.client.get('/cross-off/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        self.assertEquals(response.status_code, 302)
+        item.delete()
+
+    def test_cross_off_page_wrong_item_without_login(self):
+        print("Start to test the cross-off page without and incorrect item")
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/cross-off/'+str(item_id))
+        self.assertEquals(response.status_code, 302)
+
+    def test_cross_off_page_wrong_item_with_login(self):
+        print("Start to test the cross-off page with login and incorrect item")
+        self.client.login(username="testuser2", password="trythetest123")
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/cross-off/'+str(item_id))
+        self.assertEquals(response.status_code, 302)
+
+    def test_cross_off_page_without_item_id(self):
+        print("Start to test the cross_off page without item")
+        response = self.client.get('/cross-off/')
+        self.assertEquals(response.status_code, 404)
+
+    def test_cross_off_page_without_item_id_with_login(self):
+        print("Start to test the cross_off page without item and user")
+        self.client.login(username="testuser2", password="trythetest123")
+        response = self.client.get('/cross-off/')
+        self.assertEquals(response.status_code, 404)
+
+class UncrossTest(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.user1 = User.objects.create_user(username="testuser", password="trythetest123", points = 0)
+        self.user2 = User.objects.create_user(username="testuser2", password="trythetest123", points = 0)
+
+    def test_uncross_page_with_correct_user(self):
+        print("Start to test the uncross page with correct user and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = True, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.client.login(username="testuser", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        response = response = self.client.get('/uncross/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == False)
+        item.delete()
+
+    def test_uncross_off_page_with_incorrect_user(self):
+        print("Start to test the uncorss page with incorrect user and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = True, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.client.login(username="testuser2", password="trythetest123")
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        response = response = self.client.get('/uncross/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        self.assertTrue(response.status_code, 302)
+        item.delete()
+
+    def test_uncross_page_without_login(self):
+        print("Start to test the uncross page without login and correct item")
+        item = models.ToDoItem(item = "testcase", ddl_date = datetime.date.today(), points = 200, completed = True, owner = self.user1)
+        item.save()
+        item_id = item.id
+        self.assertTrue(models.ToDoItem.objects.filter(id = item_id).exists())
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        response = self.client.get('/uncross/'+str(item_id))
+        self.assertTrue(models.ToDoItem.objects.get(id = item_id).completed == True)
+        self.assertEquals(response.status_code, 302)
+        item.delete()
+
+    def test_uncross_page_wrong_item_without_login(self):
+        print("Start to test the uncross page without and incorrect item")
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/uncross/'+str(item_id))
+        self.assertEquals(response.status_code, 302)
+
+    def test_uncross_page_wrong_item_with_login(self):
+        print("Start to test the uncross page with login and incorrect item")
+        self.client.login(username="testuser2", password="trythetest123")
+        item_id = 3000
+        self.assertFalse(models.ToDoItem.objects.filter(id = item_id).exists())
+        response = self.client.get('/uncross/'+str(item_id))
+        self.assertEquals(response.status_code, 302)
+
+    def test_uncross_page_without_item_id(self):
+        print("Start to test the uncross page without item")
+        response = self.client.get('/uncross/')
+        self.assertEquals(response.status_code, 404)
+
+    def test_uncross_page_without_item_id_with_login(self):
+        print("Start to test the uncross page without item and user")
+        self.client.login(username="testuser2", password="trythetest123")
+        response = self.client.get('/uncross/')
+        self.assertEquals(response.status_code, 404)
 
 class EditTest(TestCase):
     pass

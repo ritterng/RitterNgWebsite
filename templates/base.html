@@ -10,140 +10,48 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
   <title>To-do List</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{% url 'index' %}">Ritter's</a>
-    <a class="navbar-brand" href="{% url 'home' %}">To-Do List</a>
-    <a class="navbar-brand" href="{% url 'wish' %}">Wish</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'logo_white.png' %}" width="50" height="50" alt="Ritter Ng Website">
+      Ritter Ng
+    </a>
+
+    <div class="collapse navbar-collapse  ml-auto" id="navbarNav">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Blog</a>
+
+        <div class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle nav-item dropdown active" href="#" id="navbarDropdownMenuLink"
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Apps
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'home' %}">To-Do List</a>
+            <a class="dropdown-item" href="{% url 'wish' %}">Wish</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        {% if user.is_authenticated %}
-        <li class='nav-item'>
-          <a class='nav-link' href="{% url 'logout-user'%}">Logout</a>
-        </li>
-        <li>
-          <p>{{ user.points }}</p>
-        </li>
-        {% else %}
-        <li class='nav-item'>
-          <a class='nav-link' href="{% url 'login-user' %}">Login</a>
-        </li>
-        {% endif %}
-      </ul>
+    <div class="d-flex justify-content-end collapse navbar-collapse navbar-nav">
       {% if user.is_authenticated %}
-      <button class="btn btn-outline-light my-2 my-sm-0" type="button" data-toggle="modal" data-target="#addToList">
-        Add to List
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="addToList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            
-            <form class="from-inline my-2 my-lg-0" method="POST" action='/home' name="ListForm">
-              {% csrf_token %}
-              <div class="modal-body">
-                <div class='form-group'>
-                  <label for="ItemNaem">Item</label>
-                  <input class="form-control" type="search" placeholder="Enter The Item" aria-label="Search" name="item"
-                    id="ItemName">
-                </div>
-                <div class='form-group'>
-                  <label for='ddl_date'>Deadline</label>
-                  <input class="form-control" type="date" value="today" placeholder='today' min='today' name='ddl_date'
-                    id='ddl_date'>
-                  <small class='form-text text-muted'>Deadline cannot be earlier than today</small>
-                </div>
-                <div class='form-group'>
-                  <label for='points'>Points</label>
-                  <input class="form-control" type="number" min="100" step='100' placeholder="Enter The Points"
-                    name="points" id="points">
-                  <input type="hidden" value="false" name="completed">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                <button type="submit" class="btn btn-primary">Add To List</button>
-              </div>
-            </form>
-
-            
-          </div>
-        </div>
-      </div>
-      
-      <button type="button" class="btn btn-outline-light my-2 my-sm-0" data-toggle="modal" data-target="#addWish">
-        Add new wish
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="addWish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New Wish</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form class="from-inline my-2 my-lg-0" method="POST" action='/wish/'>
-              {% csrf_token %}
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="wish-item">Wish</label>
-                  <input class="form-control" type="search" placeholder="Enter New Wish" aria-label="Search" name="item"
-                    id="wish-item">
-                </div>
-                <div class="form-group">
-                  <label for="wish-points">Points</label>
-                  <input class="form-control" type="number" placeholder="Points It Worths" aria-label="Search"
-                    name="points" id="wish-points">
-                </div>
-                <div class="form-group">
-                  <label for="wish-link">Link</label>
-                  <input class="form-control" type="search" placeholder="Link to the product" aria-label="Search"
-                    name="link" id="wish-link">
-                </div>
-                <div class="form-group">
-                  <label for="wish-description">description</label>
-                  <input class="form-control" type="search" placeholder="Description" aria-label="Search"
-                    name="description" id="wish-description">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add New Wish</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <a class='nav-item nav-link active my-2 mr-sm-2' href="{% url 'logout-user'%}">Logout</a>
+      {% else %}
+      <a class='nav-item nav-link active my-2 mr-sm-2' href="{% url 'login-user' %}">Login</a>
       {% endif %}
-      <!--
-      <form class="form-inline my-2 my-lg-0" method="POST">
-        {% csrf_token %}
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Add to list</button>
-      </form>
-    -->
     </div>
   </nav>
   <br />
-  <div class='container'>
+  <div class='container-fluid fill'>
     {% if messages %}
     {% for message in messages %}
     <div class='alert alert-warning alert-dismissable' role='alert'>

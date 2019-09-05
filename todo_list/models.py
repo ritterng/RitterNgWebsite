@@ -17,6 +17,7 @@ class ToDoItem(models.Model):
     points = models.IntegerField(default=100)
     completed = models.BooleanField(default = False)
     owner = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
+    description= models.CharField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
         return str(self.id) + ' | ' + self.item + ' | ' + str(self.completed) + "\n"

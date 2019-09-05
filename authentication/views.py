@@ -16,7 +16,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             # TODO rewrite to profile or home page
-            return redirect('profile')  # redirect by hardcoded URL
+            return redirect('index')  # redirect by hardcoded URL
         else:
             messages.warning(request, ('Incorrect username or password'))
             return redirect('login-user')  # redirect by URL name
@@ -27,7 +27,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ('You have been logged out...'))
-    return redirect('home')
+    return render(request,'index.html', {})
 
 
 def profile(request):

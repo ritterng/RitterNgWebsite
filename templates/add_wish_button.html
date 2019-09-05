@@ -1,0 +1,47 @@
+<button type="button" class="btn btn-outline-light my-2 my-sm-0" data-toggle="modal" data-target="#addWish">
+  Add new wish
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addWish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Wish</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="from-inline my-2 my-lg-0" method="POST" action='/wish/'>
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="wish-item">Wish</label>
+            <input class="form-control" type="search" placeholder="Enter New Wish" aria-label="Search" name="item"
+              id="wish-item">
+          </div>
+          <div class="form-group">
+            <label for="wish-points">Points</label>
+            <input class="form-control" type="number" placeholder="Points It Worths" aria-label="Search" name="points"
+              id="wish-points">
+          </div>
+          <div class="form-group">
+            <label for="wish-link">Link</label>
+            <input class="form-control" type="search" placeholder="Link to the product" aria-label="Search" name="link"
+              id="wish-link">
+          </div>
+          <div class="form-group">
+            <label for="wish-description">description</label>
+            <input class="form-control" type="search" placeholder="Description" aria-label="Search" name="description"
+              id="wish-description">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add New Wish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}

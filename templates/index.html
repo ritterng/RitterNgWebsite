@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="Container-fluid">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello!</h1>
+                <p class="lead">This is Ritter Ng's website. The To-Do List is available right now! Try it!</p>
+                <hr class="my-4">
+                <p>The register is not available.</p>
+                <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Learn more</a>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+{% endblock %}
