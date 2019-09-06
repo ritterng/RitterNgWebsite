@@ -1,116 +1,160 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="Container-fluid fill">
     <div class="row fill">
-        <div class="col border-right border-light">
+        <div class="col-2" style="min-width:20rem;">
             {% if user.is_authenticated %}
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addToList">
-                Add to List
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="addToList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form class="from-inline my-2 my-lg-0" method="POST" action='/todo/home/' name="ListForm">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                <div class='form-group'>
-                                    <label for="ItemNaem">Item</label>
-                                    <input class="form-control" type="search" placeholder="Enter The Item"
-                                        aria-label="Search" name="item" id="ItemName">
-                                </div>
-                                <div class='form-group'>
-                                    <label for='ddl_date'>Deadline</label>
-                                    <input class="form-control" type="date" value="today" placeholder='today'
-                                        min='today' name='ddl_date' id='ddl_date'>
-                                    <small class='form-text text-muted'>Deadline cannot be earlier than today</small>
-                                </div>
-                                <div class='form-group'>
-                                    <label for='points'>Points</label>
-                                    <input class="form-control" type="number" min="100" step='100'
-                                        placeholder="Enter The Points" name="points" id="points">
-                                    <input type="hidden" value="false" name="completed">
-                                </div>
-                                <div class="form-group">
-                                    <label for='description'>Description</label>
-                                    <textarea class="form-control" id="description" name='description' rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
-                                <button type="submit" class="btn btn-primary">Add To List</button>
-                            </div>
-                        </form>
-
-
+            <div class="profile-sidebar m-3">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic d-flex justify-content-center">
+                    <img src='{% static "profile.png" %}' class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{ user.username }} | {{ user.points }}
                     </div>
                 </div>
-            </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWish">
-                Add new wish
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="addWish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add New Wish</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+                <div class="profile-userbuttons">
+                    <div class="row m-1">
+                        <div class="col-6">
+                            <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
+                                data-target="#addToList" style="font-size: 0.5vw;">
+                                <small>Add ToDo</small>
                             </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="addToList" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <form class="from-inline my-2 my-lg-0" method="POST" action='/todo/home/'
+                                            name="ListForm">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <div class='form-group'>
+                                                    <label for="ItemNaem">Item</label>
+                                                    <input class="form-control" type="search"
+                                                        placeholder="Enter The Item" aria-label="Search" name="item"
+                                                        id="ItemName">
+                                                </div>
+                                                <div class='form-group'>
+                                                    <label for='ddl_date'>Deadline</label>
+                                                    <input class="form-control" type="date" value="today"
+                                                        placeholder='today' min='today' name='ddl_date' id='ddl_date'>
+                                                    <small class='form-text text-muted'>Deadline cannot be earlier than
+                                                        today</small>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <label for='points'>Points</label>
+                                                    <input class="form-control" type="number" min="100" step='100'
+                                                        placeholder="Enter The Points" name="points" id="points">
+                                                    <input type="hidden" value="false" name="completed">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for='description'>Description</label>
+                                                    <textarea class="form-control" id="description" name='description'
+                                                        rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancle</button>
+                                                <button type="submit" class="btn btn-primary">Add To List</button>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <form class="from-inline my-2 my-lg-0" method="POST" action='/todo/wish/'>
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="wish-item">Wish</label>
-                                    <input class="form-control" type="search" placeholder="Enter New Wish"
-                                        aria-label="Search" name="item" id="wish-item">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wish-points">Points</label>
-                                    <input class="form-control" type="number" placeholder="Points It Worths"
-                                        aria-label="Search" name="points" id="wish-points">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wish-link">Link</label>
-                                    <input class="form-control" type="search" placeholder="Link to the product"
-                                        aria-label="Search" name="link" id="wish-link">
-                                </div>
-                                <div class="form-group">
-                                    <label for="wish-description">description</label>
-                                    <input class="form-control" type="search" placeholder="Description"
-                                        aria-label="Search" name="description" id="wish-description">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                data-target="#addWish" style="width:100">
+                                <small>Add Wish</small>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="addWish" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add New Wish</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form class="from-inline my-2 my-lg-0" method="POST" action='/todo/wish/'>
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="wish-item">Wish</label>
+                                                    <input class="form-control" type="search"
+                                                        placeholder="Enter New Wish" aria-label="Search" name="item"
+                                                        id="wish-item">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="wish-points">Points</label>
+                                                    <input class="form-control" type="number"
+                                                        placeholder="Points It Worths" aria-label="Search" name="points"
+                                                        id="wish-points">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="wish-link">Link</label>
+                                                    <input class="form-control" type="search"
+                                                        placeholder="Link to the product" aria-label="Search"
+                                                        name="link" id="wish-link">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="wish-description">description</label>
+                                                    <input class="form-control" type="search" placeholder="Description"
+                                                        aria-label="Search" name="description" id="wish-description">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Add New Wish</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add New Wish</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="mt-3 mb-0">
+                    <ul class="nav flex-column nav-pills">
+                        <a class="nav-link nav-item" href="{% url 'home' %}">
+                            Todo List</a>
+                        <a class="nav-link nav-item" href="{% url 'wish' %}">
+                            Wish List </a>
+                    </ul>
+                </div>
+                <!-- END MENU -->
             </div>
             {% endif %}
         </div>
-        <div class="col-8 fill">
+        <div class="col-8 fill border-right border-left border-light m-3" style="min-width:27rem; ">
             {% block listcontent %}
             {% endblock %}
         </div>
-        <div class="col border-left border-lightk fill">
-            This is right
-        </div>
+
     </div>
 </div>
 
