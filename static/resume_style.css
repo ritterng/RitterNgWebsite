@@ -4,12 +4,12 @@
     box-sizing: border-box;
   }
   html {
-    height: 100%;  
+    height: 100%; 
+    max-width: 8.5n; 
   }
-  
   body {
     min-height: 100%;  
-    background: #eee;
+    background: #EEE;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     color: #222;
@@ -49,7 +49,8 @@
 }
     
 .header .email ,
-.header .phone {
+.header .phone,
+.header .address {
     color: #999;
     font-weight: 300;
 } 
@@ -69,7 +70,8 @@
 }
 
 .header .email-val,
-.header .phone-val{
+.header .phone-val,
+.header .address-val{
     color: #000 !important;
     font-weight: 400 !important;
 }
