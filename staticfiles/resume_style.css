@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    height: 100%;  
+  }
+  
+  body {
+    min-height: 100%;  
+    background: #eee;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #222;
+    font-size: 14px;
+    line-height: 26px;
+    padding-bottom: 50px;
+    padding-top: 10px;
+  }
+
+
+.container{
+    box-shadow: 1px 1px 2px #DAD7D7;
+    border-radius: 3px; 
+    padding:40px;
+    background: #fff;
+}
+
+.header {
+    margin-bottom: 20px;
+}  
+.header .full-name {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+    
+.header .first-name {
+    font-weight: 700;
+}
+    
+.header .last-name {
+    font-weight: 300;
+}
+    
+.header .contact-info {
+    margin-bottom: 20px;
+}
+    
+.header .email ,
+.header .phone {
+    color: #999;
+    font-weight: 300;
+} 
+    
+.separator {
+    height: 10px;
+    display: inline-block;
+    border-left: 2px solid #999;
+    margin: 0px 10px;
+}
+    
+.header .position {
+    font-weight: bold;
+    display: inline-block !important;
+    margin-right: 10px;
+    text-decoration: underline;
+}
+
+.header .email-val,
+.header .phone-val{
+    color: #000 !important;
+    font-weight: 400 !important;
+}
+
+.details{
+    line-height: 20px;
+}
+
+hr{
+    margin: 0px;
+}
+
+.details .section{
+    margin-bottom: 20px;
+}
+
+.details .section:last-of-type{
+    margin-bottom: 0px;
+}
+
+.section-title {
+    letter-spacing: 2px;
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom:5px;
+    text-transform: uppercase;
+}
+.degree,
+.university {
+    font-weight: bold;
+    color: #000;
+    margin-bottom: -2px;
+}
+
+.major,
+.location {
+    color: #000;
+    margin-bottom: -2px;
+}
+
+.period-date{
+    color: #000;
+    margin-bottom: -2px;
+}

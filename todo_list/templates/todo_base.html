@@ -2,29 +2,29 @@
 {% load static %}
 
 {% block content %}
-<div class="Container-fluid fill">
-    <div class="row fill">
-        <div class="col-2" style="min-width:20rem;">
-            {% if user.is_authenticated %}
-            <div class="profile-sidebar m-3">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic d-flex justify-content-center">
-                    <img src='{% static "profile.png" %}' class="img-responsive" alt="">
-                </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{ user.username }} | {{ user.points }}
+<div class="container-fluid fill">
+    <div class="container">
+        <div class="row fill">
+            <div class="col-2 p-0" style="min-width:18rem;">
+                {% if user.is_authenticated %}
+                <div class="profile-sidebar m-3">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic d-flex justify-content-center">
+                        <img src='{% static "profile.png" %}' class="img-responsive" alt="">
                     </div>
-                </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            {{ user.username }} | {{ user.points }}
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
                     <div class="row m-1">
-                        <div class="col-6">
-                            <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
-                                data-target="#addToList" style="font-size: 0.5vw;">
+                        <div class="col-6 ">
+                            <button class="btn btn-primary btn-block btn-sm p-0" type="button" data-toggle="modal"
+                                data-target="#addToList" style="font-size: max(0.5vw, 12px)">
                                 <small>Add ToDo</small>
                             </button>
                             <!-- Modal -->
@@ -33,7 +33,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add New To-Do Item</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -81,8 +81,8 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                data-target="#addWish" style="width:100">
+                            <button type="button" class="btn btn-primary btn-block p-0 btn-sm" data-toggle="modal"
+                                data-target="#addWish" style="font-size: max(0.5vw, 12px);">
                                 <small>Add Wish</small>
                             </button>
 
@@ -135,26 +135,27 @@
                             </div>
                         </div>
                     </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- SIDEBAR MENU -->
+                    <div class="mt-3 mb-1">
+                        <ul class="nav flex-column nav-pills">
+                            <a class="nav-link nav-item" href="{% url 'home' %}">
+                                Todo List</a>
+                            <a class="nav-link nav-item" href="{% url 'wish' %}">
+                                Wish List </a>
+                        </ul>
+                    </div>
+                    <!-- END MENU -->
                 </div>
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
-                <div class="mt-3 mb-0">
-                    <ul class="nav flex-column nav-pills">
-                        <a class="nav-link nav-item" href="{% url 'home' %}">
-                            Todo List</a>
-                        <a class="nav-link nav-item" href="{% url 'wish' %}">
-                            Wish List </a>
-                    </ul>
-                </div>
-                <!-- END MENU -->
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-        <div class="col-8 fill border-right border-left border-light m-3" style="min-width:27rem; ">
-            {% block listcontent %}
-            {% endblock %}
-        </div>
+            <div class="col-8 fill border-right border-left border-light mt-3" style="min-width:27rem; ">
+                {% block listcontent %}
+                {% endblock %}
+            </div>
+            
 
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+<div class="Container-fluid fill">
+    <div class="row fill">
+        <div class="col-2" style="min-width:20rem;">
+            {% if user.is_authenticated %}
+            <div class="profile-sidebar m-3">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic d-flex justify-content-center">
+                    <img src='{% static "profile.png" %}' class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{ user.username }} 
+                    </div>
+                </div>
+                
+            </div>
+            {% endif %}
+            <hr>
+            <div>
+                categories
+            </div>
+        </div>
+        <div class="col-8 fill border-right border-left border-light m-3" style="min-width:27rem; ">
+            {% block blogcontent %}
+            {% endblock %}
+        </div>
+    </div>
+
+</div>
+{% endblock%}

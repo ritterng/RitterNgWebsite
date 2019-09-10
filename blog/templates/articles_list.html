@@ -1,0 +1,20 @@
+{% extends 'blog_base.html' %}
+
+{% block blogcontent %}
+{% if articles %}
+<div class="container-fluid">
+    {% for article in articles %}
+    <div class="article">
+        <h1 class="mt-4"> {{ article.title }} </h1>
+        <p>by {{ article.author }}</p>
+        <hr>
+        <p> Posted on {{ article.publish_on }}</p>
+        <hr>
+        {{ article.content }}
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}

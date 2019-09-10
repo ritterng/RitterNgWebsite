@@ -22,4 +22,5 @@ urlpatterns = [
     path('',views.index, name = 'index'),
     path('todo/',include('todo_list.urls')),
     path('auth/',include('authentication.urls')),
+    path('blog/', include('blog.urls')),
 ]

@@ -18,7 +18,6 @@ def home(request):
     user = request.user
     if request.method == 'POST':
         form = ListForm(request.POST or None)
-        print(form)
         if form.is_valid():
             item = form.save(commit = False)
             item.owner = user
@@ -34,10 +33,6 @@ def home(request):
 
     else:
         all_items = ToDoItem.objects.filter(owner = user)
-        for item in all_items:
-            print(item.item)
-            print(item.id)
-            print()
         return render(request, 'todo/home.html', {'all_items': all_items})
 
 @login_required
