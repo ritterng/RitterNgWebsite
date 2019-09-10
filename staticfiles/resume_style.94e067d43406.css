@@ -4,12 +4,12 @@
     box-sizing: border-box;
   }
   html {
-    height: 100%;  
+    height: 100%; 
+    max-width: 8.5n; 
   }
-  
   body {
     min-height: 100%;  
-    background: #eee;
+    background: #EEE;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     color: #222;
@@ -49,7 +49,8 @@
 }
     
 .header .email ,
-.header .phone {
+.header .phone,
+.header .address {
     color: #999;
     font-weight: 300;
 } 
@@ -69,7 +70,8 @@
 }
 
 .header .email-val,
-.header .phone-val{
+.header .phone-val,
+.header .address-val{
     color: #000 !important;
     font-weight: 400 !important;
 }
@@ -99,7 +101,10 @@ hr{
     text-transform: uppercase;
 }
 .degree,
-.university {
+.university,
+.skills-cate,
+.employer,
+.project-name {
     font-weight: bold;
     color: #000;
     margin-bottom: -2px;
@@ -114,4 +119,13 @@ hr{
 .period-date{
     color: #000;
     margin-bottom: -2px;
+    font-weight: bold;
+}
+
+ul, li{
+    list-style-position:inside;
+    word-spacing: 1.5px;
+}
+.new-line{
+    line-height: 30%
 }
