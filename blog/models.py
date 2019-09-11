@@ -20,11 +20,9 @@ class Article(models.Model):
     author = models.ForeignKey('authentication.CustomUser', on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
     title = models.CharField(max_length = 100, unique = True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, default=None, null=True, blank=True)
     content = models.TextField()
-    updated_on = models.DateField(auto_now=True)
-    created_on = models.DateField(auto_now_add=True)
-    publish_on = models.DateField()
+    publish_on = models.DateField(auto_now=True)
     views = models.PositiveIntegerField(default=0)
 
     class Meta:

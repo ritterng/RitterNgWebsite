@@ -10,6 +10,14 @@
         <hr>
         <p> Posted on {{ article.publish_on }}</p>
         <hr>
+        <p> Category: {{ article.category.name }}</p>
+        <hr>
+        <p> Tags:
+            {% for tag in article.tags.all %}
+            {{ tag.name }} &nbsp;
+            {% endfor %}
+        </p>
+        <hr>
         {{ article.content }}
     </div>
     <hr>
